@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE configuration PUBLIC "-//mybatis.org//DTD Config 3.0//EN" "http://mybatis.org/dtd/mybatis-3-config.dtd">
+ 
+<configuration>
+ 
+    <typeAliases>
+        <typeAlias alias="User" type="com.gmo.entity.User" />
+        <typeAlias alias="Student" type="com.gmo.entity.Student" />
+        <typeAlias alias="StudentInfo" type="com.gmo.entity.StudentInfo" />
+    </typeAliases>
+    
+    <mappers>
+        <mapper resource="com/gmo/mapper/sql/User.xml" />
+        <mapper resource="com/gmo/mapper/sql/Student.xml" />
+        <mapper resource="com/gmo/mapper/sql/StudentInfo.xml" />
+    </mappers>
+ 
+</configuration>

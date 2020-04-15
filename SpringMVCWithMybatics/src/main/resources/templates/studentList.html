@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org" lang="en">
+<head>
+<meta charset="UTF-8">
+<title>Student list</title>
+<link th:href="@{/vendor/bootstrap/css/bootstrap.min.css}" rel="stylesheet" />
+<link th:href="@{/vendor/font-awesome/css/font-awesome.min.css}" rel="stylesheet" />
+<link th:href="@{/vendor/bootstrap/css/bootstrapValidator.min.css}" rel="stylesheet" />
+<link th:href="@{/custom/css/style.css}" rel="stylesheet" />
+</head>
+<body>
+	<nav class="navbar navbar-default">
+		<div class="container-fluid">
+			<div class="navbar-header">
+				<a class="navbar-brand" href="#">
+					<img alt="Brand" th:src="@{/images/Logo-GMO-Z.com-RUNSYSTEM.png}" height="20px">
+				</a>
+			</div>
+			<ul class="nav navbar-nav navbar-right">
+				<li>
+        			<a th:text="'Welcome ' + ${session.USER.userName}"></a>
+        		</li>
+        		<li>
+        			<a th:href="@{/authentication/logout}">Logout</a>
+        		</li>
+      		</ul>
+		</div>
+	</nav>
+	<script th:src="@{/vendor/jquery/jquery.min.js}"></script>
+	<script th:src="@{/vendor/bootstrap/js/bootstrap.min.js}"></script>
+	<script th:src="@{/vendor/bootstrap/js/bootstrapValidator.min.js}"></script>
+	<script th:src="@{/vendor/sweetalert2/sweetalert2@8.js}"></script>
+	<script th:src="@{/custom/js/register-script.js}"></script>
+</body>
+</html>
