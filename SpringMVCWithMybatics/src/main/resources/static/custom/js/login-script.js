@@ -34,7 +34,16 @@ $(document).ready(function(){
     FORM.on("click", "#btnRegister", function () {
         window.location.href = BASE_URL + "/authentication/register"
     });
-    
+
+    function getData() {
+        let data = {
+        	"userName": $("#txtUsername").val(),
+        	"password": $("#txtPassword").val()
+        };
+        console.log(data);
+        return data;
+    }
+
     FORM.bootstrapValidator({
         message: 'Bạn chưa điền vào trường này',
         feedbackIcons: {
@@ -76,14 +85,5 @@ $(document).ready(function(){
             }
         }
     });
-
-    function getData() {
-        let data = {
-        	"userName": $("#txtUsername").val(),
-        	"password": $("#txtPassword").val()
-        };
-        console.log(data);
-        return data;
-    }
 
 });

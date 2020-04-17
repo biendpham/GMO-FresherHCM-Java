@@ -6,6 +6,7 @@
 <link th:href="@{/vendor/bootstrap/css/bootstrap.min.css}" rel="stylesheet" />
 <link th:href="@{/vendor/font-awesome/css/font-awesome.min.css}" rel="stylesheet" />
 <link th:href="@{/vendor/bootstrap/css/bootstrapValidator.min.css}" rel="stylesheet" />
+<link th:href="@{/vendor/sortable-0.8.0/sortable-theme-bootstrap.css}" rel="stylesheet" />
 <link th:href="@{/custom/css/style.css}" rel="stylesheet" />
 </head>
 <body>
@@ -17,19 +18,80 @@
 				</a>
 			</div>
 			<ul class="nav navbar-nav navbar-right">
-				<li>
-        			<a th:text="'Welcome ' + ${session.USER.userName}"></a>
-        		</li>
-        		<li>
-        			<a th:href="@{/authentication/logout}">Logout</a>
-        		</li>
-      		</ul>
+				<li><a>Welcome admin</a></li>
+				<li><a th:href="@{/logout}">Logout</a></li>
+			</ul>
 		</div>
 	</nav>
+	
+	<div class=container>
+		<div class=row>
+			<div class="col-xs-8 col-xs-offset-2">
+				<form class="form-horizontal" id="formStudent">
+					<div class="form-group row">
+						<label class="col-xs-3 control-label" for="txtStudentCode">Student Code :</label>
+						<div class="col-xs-6">
+							<input type="text" class="form-control" name="student_code" id="txtStudentCode"/>
+						</div>
+					</div>
+
+					<div class="form-group row">
+						<label class="col-xs-3 control-label" for="txtStudentName">Student Name :</label>
+						<div class="col-xs-6">
+							<input type="text" class="form-control" name="student_name" id="txtStudentName"/>
+						</div>
+						<div class="col-xs-3">
+							<button type="button" class="btn btn-primary" id="btnSearch" 
+							style="width: 100px;">Search</button>
+						</div>
+					</div>
+					
+					<div class="form-group row">
+						<label class="col-xs-3 control-label" for="txtDayOfBirth">Birthday :</label>
+						<div class="col-xs-6">
+							<input type="date" class="form-control" name="date_of_birth" id="txtDayOfBirth"/>
+						</div>
+						<div class="col-xs-3">
+							<button type="button" class="btn btn-primary" id="btnAddStudent" 
+							style="width: 100px;">Add student</button>
+						</div>
+					</div>
+				</form>
+			</div>
+		</div>
+		<div class="row">
+			<div>
+				<table class="table table-bordered sortable-theme-bootstrap" id="table" data-sortable>
+					<thead>
+						<tr>
+						    <th>No</th>
+						    <th>Code</th>
+						    <th>Name</th>
+						    <th>Birthday</th>
+						    <th>Address</th>
+						    <th>Score</th>
+						    <th>Edit</th>
+						</tr>
+					</thead>
+					<tbody>
+					</tbody>
+				</table>				
+			</div>
+		</div>
+		<div class="row" align="center">
+			<ul id="twbs-pagination" class="pagination-md"></ul>
+		</div>
+	</div>
+	
+	
+	
 	<script th:src="@{/vendor/jquery/jquery.min.js}"></script>
 	<script th:src="@{/vendor/bootstrap/js/bootstrap.min.js}"></script>
 	<script th:src="@{/vendor/bootstrap/js/bootstrapValidator.min.js}"></script>
+	<script src="//oss.maxcdn.com/momentjs/2.8.2/moment.min.js"></script>
 	<script th:src="@{/vendor/sweetalert2/sweetalert2@8.js}"></script>
-	<script th:src="@{/custom/js/register-script.js}"></script>
+	<script th:src="@{/vendor/sortable-0.8.0/sortable.min.js}"></script>
+	<script th:src="@{/vendor/jquery.twbsPagination.js}"></script>
+	<script th:src="@{/custom/js/student-script.js}"></script>
 </body>
 </html>

@@ -12,12 +12,24 @@ package com.gmo.entity;
 
 import java.io.Serializable;
 
+import javax.validation.constraints.NotBlank;
+import javax.validation.constraints.Pattern;
+import javax.validation.constraints.Size;
+
 public class User implements Serializable{
 
 	private static final long serialVersionUID = 3281891635852813542L;
-	
+
 	private Long id;
+	
+	@NotBlank
+	@Size(max = 20)
+	@Pattern(regexp = "^[a-z0-9]+$")
 	private String userName;
+	
+	@NotBlank
+	@Size(min = 6, max=20)
+	@Pattern(regexp = "^[a-z0-9]+$")
 	private String password;
 	
 	public User() {

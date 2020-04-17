@@ -10,6 +10,13 @@
  */
 package com.gmo.mapper;
 
+import com.gmo.entity.StudentInfo;
+
 public interface StudentInfoMapper {
 
+	int insert(StudentInfo studentInfo);
+	
+	int update(StudentInfo studentInfo);
+
 }
+

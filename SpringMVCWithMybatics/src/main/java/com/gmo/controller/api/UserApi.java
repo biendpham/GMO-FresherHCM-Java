@@ -13,6 +13,7 @@ package com.gmo.controller.api;
 import java.util.List;
 
 import javax.servlet.http.HttpSession;
+import javax.validation.Valid;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -39,7 +40,7 @@ public class UserApi {
 	}
 	
 	@PostMapping(value = "/login", produces = "application/json; charset=UTF-8")
-	public String login(@RequestBody User user, HttpSession session) {
+	public String login(@Valid @RequestBody User user, HttpSession session) {
 		user = userService.findByUsernameAndPassword(user);
 		if (user != null) {
 			session.setAttribute("USER", user);
@@ -50,7 +51,7 @@ public class UserApi {
 	}
 	
 	@PostMapping(produces = "application/json; charset=UTF-8")
-	public String register(@RequestBody User user) {
+	public String register(@Valid @RequestBody User user) {
 		int result = userService.insert(user);
 		if (result == -1) {
 			return ResponseUtil.response(StatusCode.BAD_REQUEST, "Tên đăng nhập đã tồn tại");

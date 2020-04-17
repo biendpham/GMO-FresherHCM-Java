@@ -1,0 +1,107 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org" lang="en">
+<head>
+<meta charset="UTF-8">
+<title>Student Register Update</title>
+<link th:href="@{/vendor/bootstrap/css/bootstrap.min.css}" rel="stylesheet" />
+<link th:href="@{/vendor/font-awesome/css/font-awesome.min.css}" rel="stylesheet" />
+<link th:href="@{/vendor/bootstrap/css/bootstrapValidator.min.css}" rel="stylesheet" />
+<link th:href="@{/vendor/sortable-0.8.0/sortable-theme-bootstrap.css}" rel="stylesheet" />
+<link th:href="@{/custom/css/style.css}" rel="stylesheet" />
+</head>
+<body>
+	<nav class="navbar navbar-default">
+		<div class="container-fluid">
+			<div class="navbar-header">
+				<a class="navbar-brand" href="#">
+					<img alt="Brand" th:src="@{/images/Logo-GMO-Z.com-RUNSYSTEM.png}" height="20px">
+				</a>
+			</div>
+			<ul class="nav navbar-nav navbar-right">
+				<li><a>Welcome admin</a></li>
+				<li><a th:href="@{/logout}">Logout</a></li>
+			</ul>
+		</div>
+	</nav>
+	
+	<div class=container>
+		<div class=row>
+			<div class="text-center">
+				<h2>STUDENT</h2>
+			</div>
+			<div class="col-xs-8 col-xs-offset-2" style="margin-top: 10px;">
+				<form class="form-horizontal" id="formStudentRegisterUpdate">
+					<div class="form-group row">
+						<label class="col-xs-3 control-label" for="txtStudentId">Student Id :</label>
+						<div class="col-xs-6">
+							<input type="text" class="form-control" name="student_id" id="txtStudentId"
+								th:value="${student.id}" readonly />
+							<input type="hidden" class="form-control" id="txtStudentInfoId"
+								th:value="${student.studentInfo.id}"/>
+						</div>
+					</div>
+					
+					<div class="form-group row">
+						<label class="col-xs-3 control-label" for="txtStudentCode">Student Code :</label>
+						<div class="col-xs-6">
+							<input type="text" class="form-control" name="student_code" id="txtStudentCode"
+								th:value="${student.code}" />
+						</div>
+						<div class="col-xs-3">
+							<button type="button" class="btn btn-primary" id="btnGenerateCode" 
+							style="width: 120px;">Generate Code</button>
+						</div>
+					</div>
+
+					<div class="form-group row">
+						<label class="col-xs-3 control-label" for="txtStudentName">Student Name :</label>
+						<div class="col-xs-6">
+							<input type="text" class="form-control" name="student_name" id="txtStudentName"
+								th:value="${student.name}" />
+						</div>
+					</div>
+					
+					<div class="form-group row">
+						<label class="col-xs-3 control-label" for="txtDayOfBirth">Birthday :</label>
+						<div class="col-xs-6">
+							<input type="date" class="form-control" name="date_of_birth" id="txtDayOfBirth"
+								th:value="${{student.studentInfo.dateOfBirth}}"/>
+						</div>
+					</div>
+					
+					<div class="form-group row">
+						<label class="col-xs-3 control-label" for="txtAddress">Address :</label>
+						<div class="col-xs-6">
+							<textarea class="form-control" name="address" id="txtAddress" rows="3"
+									th:text="${student.studentInfo.address}">
+							</textarea>
+						</div>
+					</div>
+					
+					<div class="form-group row">
+						<label class="col-xs-3 control-label" for="txtAverageScore">Average Score :</label>
+						<div class="col-xs-6">
+							<input type="text" class="form-control" name="avegare_score" id="txtAverageScore"
+									 th:value="${student.studentInfo.averageScore}"/>
+						</div>
+					</div>
+					
+				</form>
+			</div>
+		</div>
+		<div class="row" align="center">
+			<button type="button" class="btn btn-primary" id="btnBack" style="width: 100px; margin: 0 10px;">Back</button>
+			<button type="button" class="btn btn-primary" id="btnSave" style="width: 100px; margin: 0 10px;">Save</button>
+		</div>
+	</div>
+	
+	<script th:src="@{/vendor/jquery/jquery.min.js}"></script>
+	<script th:src="@{/vendor/bootstrap/js/bootstrap.min.js}"></script>
+	<script th:src="@{/vendor/bootstrap/js/bootstrapValidator.min.js}"></script>
+	<script src="//oss.maxcdn.com/momentjs/2.8.2/moment.min.js"></script>
+	<script th:src="@{/vendor/sweetalert2/sweetalert2@8.js}"></script>
+	<script th:src="@{/vendor/sortable-0.8.0/sortable.min.js}"></script>
+	<script th:src="@{/vendor/jquery.twbsPagination.js}"></script>
+	<script th:src="@{/custom/js/studentRegisterUpdate-script.js}"></script>
+</body>
+</html>

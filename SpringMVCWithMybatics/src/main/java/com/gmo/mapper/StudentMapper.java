@@ -10,12 +10,18 @@
  */
 package com.gmo.mapper;
 
-import java.util.List;
-
+import com.github.pagehelper.Page;
 import com.gmo.entity.Student;
 
 public interface StudentMapper {
 
-	List<Student> findAll();
+	Page<Student> findByName(String name);
 	
+	Student findById(Integer id);
+	
+	int insert(Student student);
+	
+	int update(Student student);
+	
+	int delete(Student student);
 }

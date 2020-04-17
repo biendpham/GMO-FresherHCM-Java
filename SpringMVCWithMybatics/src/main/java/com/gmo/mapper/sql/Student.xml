@@ -3,10 +3,35 @@
  
 <mapper namespace="com.gmo.mapper.StudentMapper">
 
-	<select id="findAll" resultMap="studentResult">
-        SELECT A.student_code, A.student_name, B.date_of_birth, B.address, B.average_score
+	<select id="findByName" parameterType="String" resultMap="studentResult">
+        SELECT A.student_id, B.info_id, A.student_code, A.student_name, B.date_of_birth, B.address, B.average_score
 		FROM student A join student_info B on A.student_id = B.student_id
+		WHERE A.student_name LIKE concat("%", #{name},"%")
     </select>
+    
+    <select id="findById" parameterType="int" resultMap="studentResult">
+        SELECT A.student_id, B.info_id, A.student_code, A.student_name, B.date_of_birth, B.address, B.average_score
+		FROM student A join student_info B on A.student_id = B.student_id
+		WHERE A.student_id = #{id}
+    </select>
+    
+    <insert id="insert" parameterType="Student" useGeneratedKeys="true" keyProperty="id" keyColumn="student_id">
+		INSERT INTO student (student_code, student_name)
+		VALUES (#{code}, #{name})
+	</insert>
+	
+	<update id="update" parameterType="Student">
+		UPDATE student 
+		SET
+			student_code = #{code}, 
+			student_name = #{name}
+		WHERE student_id = #{id}
+	</update>
+    
+    <delete id="delete" parameterType="Student">
+		DELETE FROM student 
+		WHERE student_id = #{id}
+	</delete>
     
     <resultMap id="studentResult" type="Student">
 		<id property="id" column="student_id" />
@@ -17,7 +42,7 @@
 	
 	<resultMap id="studentInfoResult" type="StudentInfo">
 		<id property="id" column="info_id" />
-		<id property="student.id" column="student_id" />
+		<id property="studentId" column="student_id" />
 		<result property="address" column="address"/>
 		<result property="averageScore" column="average_score"/>
 		<result property="dateOfBirth" column="date_of_birth"/>

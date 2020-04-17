@@ -12,31 +12,40 @@ package com.gmo.entity;
 
 import java.io.Serializable;
 
+import javax.validation.constraints.NotBlank;
+import javax.validation.constraints.Size;
+
 public class Student implements Serializable {
 
 	private static final long serialVersionUID = -6631797530649957464L;
 	
-	private Long id;
+	private Integer id;
+	
+	@NotBlank
+	@Size(max = 10)
 	private String code;
+	
+	@NotBlank
+	@Size(max = 20)
 	private String name;
 	private StudentInfo studentInfo;
 
 	public Student() {
-
+		this.studentInfo = new StudentInfo();
 	}
 
-	public Student(Long id, String code, String name, StudentInfo studentInfo) {
+	public Student(Integer id, String code, String name, StudentInfo studentInfo) {
 		this.id = id;
 		this.code = code;
 		this.name = name;
 		this.studentInfo = studentInfo;
 	}
 
-	public Long getId() {
+	public Integer getId() {
 		return id;
 	}
 
-	public void setId(Long id) {
+	public void setId(Integer id) {
 		this.id = id;
 	}
 

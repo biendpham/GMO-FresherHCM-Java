@@ -2,10 +2,6 @@
 	font-size: 1.4rem !important;
 }
 
-.panel {
-	margin-top: 30%
-}
-
 #formLogin {
 	padding: 20px;
 }
@@ -22,7 +18,7 @@ ul.pull-right {
 	height: 60px;
 }
 
-.right-menu{
+.right-menu {
 	margin-top: 15px;
 	position: absolute;
 	right: 10px;
@@ -35,6 +31,9 @@ ul.pull-right {
 }
 
 .inline-block {
-	 display:inline-block;
+	display: inline-block;
 }
+
+.btnDelete{
+	margin-left: 10px;
 }

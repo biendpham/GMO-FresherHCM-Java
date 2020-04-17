@@ -13,42 +13,56 @@ package com.gmo.entity;
 import java.io.Serializable;
 import java.util.Date;
 
+import javax.validation.constraints.NotBlank;
+
+import org.springframework.format.annotation.DateTimeFormat;
+
 public class StudentInfo implements Serializable {
 
 	private static final long serialVersionUID = -8307019900377441149L;
 
-	private Long id;
-	private Student student;
+	private Integer id;
+	
+	@NotBlank
+	private Integer studentId;
+	
+	@NotBlank
 	private String address;
+	
+	@NotBlank
 	private Double averageScore;
+	
+	@DateTimeFormat(pattern = "yyyy-MM-dd")
 	private Date dateOfBirth;
 
 	public StudentInfo() {
-
+		this.dateOfBirth = new Date();
 	}
 
-	public StudentInfo(Long id, Student student, String address, Double averageScore, Date dateOfBirth) {
+	public StudentInfo(Integer id, Integer studentId, String address, Double averageScore, Date dateOfBirth) {
 		this.id = id;
-		this.student = student;
+		this.studentId = studentId;
 		this.address = address;
 		this.averageScore = averageScore;
 		this.dateOfBirth = dateOfBirth;
 	}
 
-	public Long getId() {
+
+
+	public Integer getId() {
 		return id;
 	}
 
-	public void setId(Long id) {
+	public void setId(Integer id) {
 		this.id = id;
 	}
 
-	public Student getStudent() {
-		return student;
+	public Integer getStudentId() {
+		return studentId;
 	}
 
-	public void setStudent(Student student) {
-		this.student = student;
+	public void setStudent_id(Integer studentId) {
+		this.studentId = studentId;
 	}
 
 	public String getAddress() {
@@ -73,12 +87,6 @@ public class StudentInfo implements Serializable {
 
 	public void setDateOfBirth(Date dateOfBirth) {
 		this.dateOfBirth = dateOfBirth;
-	}
-
-	@Override
-	public String toString() {
-		return "StudentInfo [id=" + id + ", student=" + student + ", address=" + address + ", averageScore="
-				+ averageScore + ", dateOfBirth=" + dateOfBirth + "]";
 	}
 
 }
