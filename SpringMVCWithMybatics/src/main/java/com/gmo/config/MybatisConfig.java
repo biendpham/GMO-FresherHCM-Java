@@ -12,20 +12,23 @@ package com.gmo.config;
 
 import java.io.IOException;
 import java.io.InputStream;
+import java.io.Reader;
 import java.util.Properties;
 
-import org.mybatis.spring.SqlSessionFactoryBean;
+import org.apache.ibatis.io.Resources;
+import org.apache.ibatis.session.SqlSessionFactory;
+import org.apache.ibatis.session.SqlSessionFactoryBuilder;
 import org.mybatis.spring.mapper.MapperScannerConfigurer;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.ComponentScan;
 import org.springframework.context.annotation.Configuration;
-import org.springframework.core.io.ClassPathResource;
-import org.springframework.core.io.Resource;
 import org.springframework.jdbc.datasource.DataSourceTransactionManager;
 import org.springframework.jdbc.datasource.DriverManagerDataSource;
+import org.springframework.transaction.annotation.EnableTransactionManagement;
 
 @Configuration
 @ComponentScan(basePackages = { "com.gmo.service" })
+@EnableTransactionManagement
 public class MybatisConfig {
 
 	// Tạo bean dataSource
@@ -44,12 +47,9 @@ public class MybatisConfig {
 
 	// đọc thông tin file cấu hình MyBatis
 	@Bean
-	public SqlSessionFactoryBean sqlSessionFactory() throws IOException {
-		Resource resource = new ClassPathResource("SqlMapConfig.xml");
-		SqlSessionFactoryBean sqlSessionFactory = new SqlSessionFactoryBean();
-		sqlSessionFactory.setDataSource(dataSource());
-		sqlSessionFactory.setConfigLocation(resource);
-		return sqlSessionFactory;
+	public SqlSessionFactory sqlSessionFactory() throws Exception {
+		Reader reader = Resources.getResourceAsReader("SqlMapConfig.xml");
+        return new SqlSessionFactoryBuilder().build(reader);
 	}
 
 	// scan tất cả những mapper package
@@ -67,11 +67,12 @@ public class MybatisConfig {
 //        SqlSessionTemplate sessionTemplate = new SqlSessionTemplate(sqlSessionFactory().getObject());
 //        return sessionTemplate.getMapper(UserMapper.class);
 //    }
-
+	
+	
 	// enable Spring transaction
 	@Bean
 	public DataSourceTransactionManager transactionManager() throws IOException {
-		final DataSourceTransactionManager txManager = new DataSourceTransactionManager();
+		DataSourceTransactionManager txManager = new DataSourceTransactionManager();
 		txManager.setDataSource(dataSource());
 
 		return txManager;

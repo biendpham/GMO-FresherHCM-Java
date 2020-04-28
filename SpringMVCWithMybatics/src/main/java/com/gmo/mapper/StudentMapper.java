@@ -15,13 +15,17 @@ import com.gmo.entity.Student;
 
 public interface StudentMapper {
 
-	Page<Student> findByName(String name);
+	Page<Student> findBySearchRequest(Student student);
+	
+	Page<Student> findByNameAndCode(Student student);
 	
 	Student findById(Integer id);
+	
+	Student findByCode(String code);
 	
 	int insert(Student student);
 	
 	int update(Student student);
 	
-	int delete(Student student);
+	int delete(int id);
 }

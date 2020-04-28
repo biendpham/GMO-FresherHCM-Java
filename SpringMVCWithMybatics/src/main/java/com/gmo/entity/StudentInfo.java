@@ -22,16 +22,16 @@ public class StudentInfo implements Serializable {
 	private static final long serialVersionUID = -8307019900377441149L;
 
 	private Integer id;
-	
+
 	@NotBlank
 	private Integer studentId;
-	
+
 	@NotBlank
 	private String address;
-	
+
 	@NotBlank
 	private Double averageScore;
-	
+
 	@DateTimeFormat(pattern = "yyyy-MM-dd")
 	private Date dateOfBirth;
 
@@ -47,8 +47,6 @@ public class StudentInfo implements Serializable {
 		this.dateOfBirth = dateOfBirth;
 	}
 
-
-
 	public Integer getId() {
 		return id;
 	}
@@ -61,7 +59,7 @@ public class StudentInfo implements Serializable {
 		return studentId;
 	}
 
-	public void setStudent_id(Integer studentId) {
+	public void setStudentId(Integer studentId) {
 		this.studentId = studentId;
 	}
 
@@ -88,5 +86,5 @@ public class StudentInfo implements Serializable {
 	public void setDateOfBirth(Date dateOfBirth) {
 		this.dateOfBirth = dateOfBirth;
 	}
-
+	
 }

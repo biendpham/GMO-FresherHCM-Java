@@ -28,6 +28,7 @@ public class Student implements Serializable {
 	@NotBlank
 	@Size(max = 20)
 	private String name;
+	
 	private StudentInfo studentInfo;
 
 	public Student() {

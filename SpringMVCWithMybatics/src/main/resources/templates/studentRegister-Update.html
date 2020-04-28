@@ -2,106 +2,131 @@
 <html xmlns:th="http://www.thymeleaf.org" lang="en">
 <head>
 <meta charset="UTF-8">
-<title>Student Register Update</title>
-<link th:href="@{/vendor/bootstrap/css/bootstrap.min.css}" rel="stylesheet" />
-<link th:href="@{/vendor/font-awesome/css/font-awesome.min.css}" rel="stylesheet" />
-<link th:href="@{/vendor/bootstrap/css/bootstrapValidator.min.css}" rel="stylesheet" />
-<link th:href="@{/vendor/sortable-0.8.0/sortable-theme-bootstrap.css}" rel="stylesheet" />
-<link th:href="@{/custom/css/style.css}" rel="stylesheet" />
+<title>Student register - update</title>
+<link th:href="@{/css/bootstrap.min.css}" rel="stylesheet" />
+<link th:href="@{/fontawesome-free-5.0.1/css/fontawesome-all.css}" rel="stylesheet" />
+<link th:href="@{/css/style.css}" rel="stylesheet" />
 </head>
 <body>
-	<nav class="navbar navbar-default">
-		<div class="container-fluid">
-			<div class="navbar-header">
-				<a class="navbar-brand" href="#">
-					<img alt="Brand" th:src="@{/images/Logo-GMO-Z.com-RUNSYSTEM.png}" height="20px">
-				</a>
-			</div>
-			<ul class="nav navbar-nav navbar-right">
-				<li><a>Welcome admin</a></li>
-				<li><a th:href="@{/logout}">Logout</a></li>
-			</ul>
-		</div>
+	<nav class="navbar navbar-expand navbar-light bg-light">
+		<a class="navbar-brand" th:href="@{/student/list}">
+			<img alt="Brand" th:src="@{/images/Logo-GMO-Z.com-RUNSYSTEM.png}" height="36px">
+		</a>
+		<button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+			<span class="navbar-toggler-icon"></span>
+		</button>
+		<ul class="navbar-nav ml-auto">
+			<li class="nav-item">
+				<span class="navbar-text" style="color: black; font-weight: bold;">Welcome admin</span>
+			</li>
+			<li class="nav-item">
+				<a class="nav-link" style="color: black;" th:href="@{/logout}">Logout</a>
+			</li>
+		</ul>
 	</nav>
-	
-	<div class=container>
-		<div class=row>
-			<div class="text-center">
-				<h2>STUDENT</h2>
-			</div>
-			<div class="col-xs-8 col-xs-offset-2" style="margin-top: 10px;">
-				<form class="form-horizontal" id="formStudentRegisterUpdate">
-					<div class="form-group row">
-						<label class="col-xs-3 control-label" for="txtStudentId">Student Id :</label>
-						<div class="col-xs-6">
-							<input type="text" class="form-control" name="student_id" id="txtStudentId"
-								th:value="${student.id}" readonly />
-							<input type="hidden" class="form-control" id="txtStudentInfoId"
-								th:value="${student.studentInfo.id}"/>
-						</div>
-					</div>
-					
-					<div class="form-group row">
-						<label class="col-xs-3 control-label" for="txtStudentCode">Student Code :</label>
-						<div class="col-xs-6">
-							<input type="text" class="form-control" name="student_code" id="txtStudentCode"
-								th:value="${student.code}" />
-						</div>
-						<div class="col-xs-3">
-							<button type="button" class="btn btn-primary" id="btnGenerateCode" 
-							style="width: 120px;">Generate Code</button>
-						</div>
-					</div>
 
-					<div class="form-group row">
-						<label class="col-xs-3 control-label" for="txtStudentName">Student Name :</label>
-						<div class="col-xs-6">
-							<input type="text" class="form-control" name="student_name" id="txtStudentName"
-								th:value="${student.name}" />
-						</div>
+	<div class="container">
+		<div class="row">
+		<h1 class="card-title text-center col-12">STUDENT</h1>
+			<form method="post" class="col-10 offset-2 mt-2" id="formStudent"
+					th:action="${student.id == null} ? '/student': '/student/' + ${student.id}" 
+					th:object="${student}" >
+				<div class="form-group row mt-4" th:if="${id != null}">
+				    <label for="student_id" class="col-sm-2 col-form-label">Student Id :</label>
+				    <div class="col-sm-6">
+				     	<input type="text" class="form-control" id="student_id" 
+				     			th:field="*{id}" th:disabled="${id != null}">
+			    	</div>
+			    </div>
+				     			
+			    <div class="form-group row">
+				    <label for="student_code" class="col-sm-2 col-form-label">Student Code :</label>
+				    <div class="col-sm-6">
+				     	<input type="text" class="form-control" id="student_code" readonly 
+				     			th:field="*{code}">
+				     	<span class="invalid-feedback d-block" 
+					     			th:if="${#fields.hasErrors('code')}" th:errors="*{code}"></span>
+			    	</div>
+			    	<div class="col-3">
+						<button type="button" class="btn btn-primary" id="btnGenerateCode" style="width: 130px;" 
+						 			th:disabled="${id != null}" >Generate Code</button>
 					</div>
-					
-					<div class="form-group row">
-						<label class="col-xs-3 control-label" for="txtDayOfBirth">Birthday :</label>
-						<div class="col-xs-6">
-							<input type="date" class="form-control" name="date_of_birth" id="txtDayOfBirth"
-								th:value="${{student.studentInfo.dateOfBirth}}"/>
-						</div>
-					</div>
-					
-					<div class="form-group row">
-						<label class="col-xs-3 control-label" for="txtAddress">Address :</label>
-						<div class="col-xs-6">
-							<textarea class="form-control" name="address" id="txtAddress" rows="3"
-									th:text="${student.studentInfo.address}">
-							</textarea>
-						</div>
-					</div>
-					
-					<div class="form-group row">
-						<label class="col-xs-3 control-label" for="txtAverageScore">Average Score :</label>
-						<div class="col-xs-6">
-							<input type="text" class="form-control" name="avegare_score" id="txtAverageScore"
-									 th:value="${student.studentInfo.averageScore}"/>
-						</div>
-					</div>
-					
-				</form>
-			</div>
-		</div>
-		<div class="row" align="center">
-			<button type="button" class="btn btn-primary" id="btnBack" style="width: 100px; margin: 0 10px;">Back</button>
-			<button type="button" class="btn btn-primary" id="btnSave" style="width: 100px; margin: 0 10px;">Save</button>
+			    </div>
+			    
+			    <div class="form-group row">
+				    <label for="student_name" class="col-2 col-form-label">Student Name :</label>
+				    <div class="col-6">
+				     	<input type="text" class="form-control" id="student_name" 
+				     			th:field="*{name}">
+				     	<span class="invalid-feedback d-block" 
+					     			th:if="${#fields.hasErrors('name')}" th:errors="*{name}"></span>
+			    	</div>
+			    </div>
+			    
+			    <input type="hidden" th:field="*{studentInfoId}">
+			    
+			    <div class="form-group row">
+				    <label for="date_of_birth" class="col-2 col-form-label">Birthday :</label>
+				    <div class="col-6">
+				     	<input type="date" class="form-control" id="date_of_birth" 
+				     			th:field="*{{dateOfBirth}}">
+				     	<span class="invalid-feedback d-block" 
+					     		th:if="${#fields.hasErrors('dateOfBirth')}" 
+					     		th:errors="*{dateOfBirth}">
+					     </span>
+			    	</div>
+			    </div>
+			    
+			    <div class="form-group row">
+				    <label for="address" class="col-2 col-form-label">Address :</label>
+				    <div class="col-6">
+				     	<input type="text" class="form-control" id="address" 
+				     			th:field="*{address}">
+				     	<span class="invalid-feedback d-block" 
+					     		th:if="${#fields.hasErrors('address')}" 
+					     		th:errors="*{address}">
+					     </span>
+				     	
+			    	</div>
+			    </div>
+			    
+			    <div class="form-group row">
+				    <label for="average_score" class="col-2 col-form-label">Average Score :</label>
+				    <div class="col-6">
+				     	<input type="number" class="form-control" id="average_score" 
+				     			th:field="*{averageScore}">
+				     	<span class="invalid-feedback d-block" 
+					     		th:if="${#fields.hasErrors('averageScore')}" 
+					     		th:errors="*{averageScore}">
+					     </span>
+			    	</div>
+			    </div>
+			    
+			    <a th:href="@{/student/list}" type="button" class="btn btn-primary mt-2"
+							style="margin-left: 28%; width: 100px;">Back</a>
+				<button type="submit" class="btn btn-primary mt-2" 
+							style="margin-left: 3%; width: 100px;">Save</button>
+			</form>
 		</div>
 	</div>
 	
-	<script th:src="@{/vendor/jquery/jquery.min.js}"></script>
-	<script th:src="@{/vendor/bootstrap/js/bootstrap.min.js}"></script>
-	<script th:src="@{/vendor/bootstrap/js/bootstrapValidator.min.js}"></script>
-	<script src="//oss.maxcdn.com/momentjs/2.8.2/moment.min.js"></script>
-	<script th:src="@{/vendor/sweetalert2/sweetalert2@8.js}"></script>
-	<script th:src="@{/vendor/sortable-0.8.0/sortable.min.js}"></script>
-	<script th:src="@{/vendor/jquery.twbsPagination.js}"></script>
-	<script th:src="@{/custom/js/studentRegisterUpdate-script.js}"></script>
+	
+	
+	<script th:src="@{/js/jquery-3.3.1.min.js}"></script>
+	<script th:src="@{/js/jquery.validate.js}"></script>
+	<script th:src="@{/js/bootstrap.min.js}"></script>
+	<script th:src="@{/js/popper.min.js}"></script>
+	<script th:src="@{/js/jquery.twbsPagination.js}"></script>
+	<script th:src="@{/js/sweetalert2@8.js}"></script>
+	<script th:if="${success != null}"  th:inline="javascript">
+		var success = [[${success}]];
+		var message = [[${message}]];
+		if (success) {
+			Swal.fire("Success", message, "success")
+		} else {
+			Swal.fire("Failed", message, "error")
+		}
+	</script>
+<!-- 	<script th:src="@{/js/custom/studentRegister-Update-script.js}"></script> -->
 </body>
 </html>

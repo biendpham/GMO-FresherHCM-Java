@@ -12,16 +12,17 @@ package com.gmo.service;
 
 import java.util.List;
 
+import com.gmo.dto.UserDTO;
 import com.gmo.entity.User;
 
 public interface UserService {
 	
 	List<User> findAll();
 	
-	Integer findIdByUsername(User user);
+	int findIdByUsername(User user);
 	
 	User findByUsernameAndPassword(User user);
 	
-	int insert(User user);
+	int insert(UserDTO userDTO) throws Exception;
 	
 }

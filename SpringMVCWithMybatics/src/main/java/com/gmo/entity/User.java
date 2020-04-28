@@ -20,7 +20,7 @@ public class User implements Serializable{
 
 	private static final long serialVersionUID = 3281891635852813542L;
 
-	private Long id;
+	private Integer id;
 	
 	@NotBlank
 	@Size(max = 20)
@@ -28,24 +28,29 @@ public class User implements Serializable{
 	private String userName;
 	
 	@NotBlank
-	@Size(min = 6, max=20)
+	@Size(min = 6, max=15)
 	@Pattern(regexp = "^[a-z0-9]+$")
 	private String password;
 	
 	public User() {
 	}
 
-	public User(Long id, String userName, String password) {
+	public User(String userName, String password) {
+		this.userName = userName;
+		this.password = password;
+	}
+	
+	public User(Integer id, String userName, String password) {
 		this.id = id;
 		this.userName = userName;
 		this.password = password;
 	}
 
-	public Long getId() {
+	public Integer getId() {
 		return id;
 	}
 
-	public void setId(Long id) {
+	public void setId(Integer id) {
 		this.id = id;
 	}
 

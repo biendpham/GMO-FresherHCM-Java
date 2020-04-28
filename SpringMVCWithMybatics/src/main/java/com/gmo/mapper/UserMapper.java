@@ -18,7 +18,7 @@ public interface UserMapper {
 
 	List<User> findAll();
 	
-	Integer findIdByUsername(String useraName);
+	Integer findIdByUsername(String userName);
 	
 	User findByUsernameAndPassword(User user);
 	

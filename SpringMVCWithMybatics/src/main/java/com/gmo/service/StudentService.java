@@ -11,19 +11,24 @@
 package com.gmo.service;
 
 import com.github.pagehelper.Page;
-import com.gmo.entity.Pageable;
+import com.gmo.dto.SearchRequest;
+import com.gmo.dto.StudentDTO;
 import com.gmo.entity.Student;
 
 public interface StudentService {
 
-	Page<Student> findByName(Pageable pageable);
+	Page<Student> findBySearchRequest(SearchRequest searchRequest);
 	
 	Student findById(Integer id);
 	
-	int insert(Student student);
+	Student findByCode(String code);
 	
-	int update(Student student);
+	Student insert(StudentDTO studentDTO);
 	
-	int delete(Student student);
+	int update(StudentDTO studentDTO);
+	
+	int delete(int id);
+	
+	String generateCode();
 	
 }
