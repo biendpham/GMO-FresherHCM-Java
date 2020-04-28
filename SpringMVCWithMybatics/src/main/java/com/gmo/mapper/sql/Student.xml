@@ -1,0 +1,68 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"  "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+ 
+<mapper namespace="com.gmo.mapper.StudentMapper">
+
+	<select id="findBySearchRequest" parameterType="Student" resultMap="studentResult">
+        SELECT A.student_id, B.info_id, A.student_code, A.student_name, B.date_of_birth, B.address, B.average_score
+		FROM student A join student_info B on A.student_id = B.student_id
+		WHERE 
+			A.student_name LIKE concat("%", #{name},"%") AND 
+			A.student_code LIKE concat('%', #{code}, '%') AND
+			B.date_of_birth = #{studentInfo.dateOfBirth}
+    </select>
+    
+    <select id="findByNameAndCode" parameterType="Student" resultMap="studentResult">
+        SELECT A.student_id, B.info_id, A.student_code, A.student_name, B.date_of_birth, B.address, B.average_score
+		FROM student A join student_info B on A.student_id = B.student_id
+		WHERE 
+			A.student_name LIKE concat("%", #{name},"%") AND 
+			A.student_code LIKE concat('%', #{code}, '%')
+    </select>
+    
+    <select id="findById" parameterType="int" resultMap="studentResult">
+        SELECT A.student_id, B.info_id, A.student_code, A.student_name, B.date_of_birth, B.address, B.average_score
+		FROM student A join student_info B on A.student_id = B.student_id
+		WHERE A.student_id = #{id}
+    </select>
+    
+    <select id="findByCode" parameterType="String" resultMap="studentResult">
+        SELECT A.student_id, B.info_id, A.student_code, A.student_name, B.date_of_birth, B.address, B.average_score
+		FROM student A join student_info B on A.student_id = B.student_id
+		WHERE A.student_code = #{code}
+    </select>
+    
+    <insert id="insert" parameterType="Student" useGeneratedKeys="true" keyProperty="id" keyColumn="student_id">
+		INSERT INTO student (student_code, student_name)
+		VALUES (#{code}, #{name})
+	</insert>
+	
+	<update id="update" parameterType="Student">
+		UPDATE student 
+		SET
+			student_code = #{code}, 
+			student_name = #{name}
+		WHERE student_id = #{id}
+	</update>
+    
+    <delete id="delete" parameterType="int">
+		DELETE FROM student 
+		WHERE student_id = #{id}
+	</delete>
+    
+    <resultMap id="studentResult" type="Student">
+		<id property="id" column="student_id" />
+		<result property="code" column="student_code"/>
+		<result property="name" column="student_name"/>
+		<association property="studentInfo" resultMap="studentInfoResult" />
+	</resultMap>
+	
+	<resultMap id="studentInfoResult" type="StudentInfo">
+		<id property="id" column="info_id" />
+		<id property="studentId" column="student_id" />
+		<result property="address" column="address"/>
+		<result property="averageScore" column="average_score"/>
+		<result property="dateOfBirth" column="date_of_birth"/>
+	</resultMap>
+
+</mapper>

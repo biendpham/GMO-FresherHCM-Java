@@ -1,0 +1,122 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org" lang="en">
+<head>
+<meta charset="UTF-8">
+<title>Student list</title>
+<link th:href="@{/css/bootstrap.min.css}" rel="stylesheet" />
+<link th:href="@{/fontawesome-free-5.0.1/css/fontawesome-all.css}" rel="stylesheet" />
+<link th:href="@{/css/style.css}" rel="stylesheet" />
+</head>
+<body>
+	<nav class="navbar navbar-expand navbar-light bg-light">
+		<a class="navbar-brand" th:href="@{/student/list}">
+			<img alt="Brand" th:src="@{/images/Logo-GMO-Z.com-RUNSYSTEM.png}" height="36px">
+		</a>
+		<button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+			<span class="navbar-toggler-icon"></span>
+		</button>
+		<ul class="navbar-nav ml-auto">
+			<li class="nav-item">
+				<span class="navbar-text" style="color: black; font-weight: bold;">Welcome admin</span>
+			</li>
+			<li class="nav-item">
+				<a class="nav-link" style="color: black;" th:href="@{/logout}">Logout</a>
+			</li>
+		</ul>
+	</nav>
+
+	<div class="container">
+		<div class="row">
+			<form th:action="@{/student/list}" th:object="${searchRequest}" method="get" class="col-11 offset-1">
+				<div class="form-group row mt-4">
+				    <label for="student_code" class="col-sm-2 col-form-label">Student Code :</label>
+				    <div class="col-sm-6">
+				     	<input type="text" class="form-control" id="student_code" 
+				     			th:field="*{code}">
+			    	</div>
+			    </div>
+			    
+			    <div class="form-group row">
+				    <label for="student_name" class="col-2 col-form-label">Student Name :</label>
+				    <div class="col-6">
+				     	<input type="text" class="form-control" id="student_name" 
+				     			th:field="*{name}">
+			    	</div>
+			    	<div class="col-3">
+						<button type="submit" class="btn btn-primary" id="btnSearch" 
+							style="width: 120px;">Search</button>
+					</div>
+			    </div>
+			    
+			    <div class="form-group row">
+				    <label for="date_of_birth" class="col-2 col-form-label">Birthday :</label>
+				    <div class="col-6">
+				     	<input type="date" class="form-control" id="date_of_birth" 
+				     			th:field="*{{birthday}}">
+			    	</div>
+			    	<div class="col-3">
+						<a type="button" class="btn btn-primary" style="width: 120px;" th:href=@{/student}>
+							Add student
+						</a>
+					</div>
+			    </div>
+			</form>
+		</div>
+	
+		<div class="row">
+			<table class="table table-bordered sortable-theme-bootstrap" id="table" data-sortable>
+				<thead>
+					<tr class="text-center">
+					    <th>No</th>
+					    <th>Code</th>
+					    <th>Name</th>
+					    <th>Birthday</th>
+					    <th>Address</th>
+					    <th>Score</th>
+					    <th>Edit</th>
+					</tr>
+				</thead>
+				<tbody>
+					<tr th:each="student, status: ${students}" class="text-center">
+						<td th:text="${status.index + (searchRequest.pageNum - 1)*searchRequest.pageSize + 1}"></td> 
+   						<td th:text="${student.code}"></td> 
+   						<td th:text="${student.name}" class="text-left"></td> 
+   						<td th:text="${#dates.format(student.studentInfo.dateOfBirth, 'dd/MM/yyyy')}"></td> 
+   						<td th:text="${student.studentInfo.address}"></td> 
+   						<td th:text="${student.studentInfo.averageScore}"></td> 
+						<td>
+							<a th:href="@{/student/} + ${student.id}">Edit</a>
+							<a href="#" th:id="${student.id}" class="btnDelete">Delete</a>
+						</td> 
+					</tr>
+				</tbody>
+			</table>				
+		</div>
+		<div class="row d-flex justify-content-center">
+			<ul id="twbs-pagination" class="pagination-md"></ul>
+		</div>
+	</div>
+	
+	
+	
+	<script th:src="@{/js/jquery-3.3.1.min.js}"></script>
+	<script th:src="@{/js/bootstrap.min.js}"></script>
+	<script th:src="@{/js/popper.min.js}"></script>
+	<script th:src="@{/js/jquery.twbsPagination.js}"></script>
+	<script th:src="@{/js/sweetalert2@8.js}"></script>
+	<script th:if="${success != null}"  th:inline="javascript">
+		var success = [[${success}]];
+		var message = [[${message}]];
+		if (success) {
+			Swal.fire("Success", message, "success")
+		} else {
+			Swal.fire("Failed", message, "error")
+		}
+	</script>
+	<script>
+		var totalPages = [[${searchRequest.totalPages}]];
+		var startPage = [[${searchRequest.pageNum}]];
+	</script>
+	<script th:src="@{/js/custom/studentList-script.js}"></script>
+</body>
+</html>
